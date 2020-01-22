@@ -1,10 +1,28 @@
 {% load static %}
 <!DOCTYPE HTML>
 <html lang="en">
-<head>
-    <link href="{% static 'todos/style.css' %}" rel="stylesheet">
-</head>
-<body>
-    <p>In the index page!</p>
-</body>
+    <head>
+        <link href="{% static 'todos/style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <form action="#" method="POST" role="form">
+            {% csrf_token %}
+            <div>
+                {{ form.todo }}
+                <button type="submit">ADD</button>
+            </div>
+        </form>
+
+        <!-- Display all TODOs -->
+        <ul>
+        {% for todo in todos %}
+            <li>
+                <div class="todo-item">
+                    <div>{{ todo.title }}</div>
+                    <div><button>Delete</button></div>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </body>
 </html>

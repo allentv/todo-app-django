@@ -1,7 +1,7 @@
 from django.urls import path, include
 
-from .views import LandingPage
+from .views import TodoManagement
 
 urlpatterns = [
-    path("", LandingPage.as_view(), name="index"),
+    path("", TodoManagement.as_view()),
 ]
