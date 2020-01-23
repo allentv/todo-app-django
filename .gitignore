@@ -134,3 +134,6 @@ dmypy.json
 
 # Docker volumes
 volumes/
+
+# MacOS
+**/.DS_Store

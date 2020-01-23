@@ -3,9 +3,12 @@
 <html lang="en">
     <head>
         <link href="{% static 'todos/style.css' %}" rel="stylesheet">
+        <link href="{% static 'todos/bootstrap.min.css' %}" rel="stylesheet">
+        <script type="text/javascript" src="{% static 'todos/jquery-3.4.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'todos/bootstrap.bundle.min.js' %}"></script>
     </head>
     <body>
-        <form action="#" method="POST" role="form">
+        <form action="add/" method="POST" role="form">
             {% csrf_token %}
             <div>
                 {{ form.todo }}
@@ -19,7 +22,12 @@
             <li>
                 <div class="todo-item">
                     <div>{{ todo.title }}</div>
-                    <div><button>Delete</button></div>
+                    <div>
+                        <form action="remove/{{ todo.id }}" method="DELETE" role="form">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </li>
         {% endfor %}

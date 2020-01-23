@@ -1,30 +1,26 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 
 from .forms import TodoForm
 from .models import Todo
 from django.views import View
 
 
-class TodoManagement(View):
-    form_class = TodoForm
+def landing_page(request):
+    todos = Todo.objects.order_by("-id")
+    form = TodoForm()
+    context = {"todos": todos, "form": form}
 
-    def get(self, request):
-        todos = Todo.objects.order_by("-id")
-        form = TodoForm()
-        context = {"todos": todos, "form": form}
+    return render(request, "todos/index.html", context=context)
 
-        return render(request, "todos/index.html", context=context)
 
-    def post(self, request):
-        print("Input TODO: ", request.POST["todo"])
+def save_todo(request):
+    form = TodoForm(request.POST)
+    if form.is_valid():
+        Todo.objects.create(title=request.POST["todo"])
 
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            new_todo = Todo(title=request.POST["todo"])
-            new_todo.save()
+    return redirect("landing-page")
 
-        return HttpResponseRedirect("/")
 
-    def delete(self, request):
-        print("Deleted value : ", request.DELETE)
+def delete_todo(request, todo_id):
+    Todo.objects.get(pk=todo_id).delete()
+    return redirect("landing-page")
