@@ -2,35 +2,39 @@
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
-        <link href="{% static 'todos/style.css' %}" rel="stylesheet">
         <link href="{% static 'todos/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'todos/style.css' %}" rel="stylesheet">
         <script type="text/javascript" src="{% static 'todos/jquery-3.4.1.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'todos/bootstrap.bundle.min.js' %}"></script>
     </head>
     <body>
-        <form action="add/" method="POST" role="form">
-            {% csrf_token %}
-            <div>
-                {{ form.todo }}
-                <button type="submit">ADD</button>
-            </div>
-        </form>
-
-        <!-- Display all TODOs -->
-        <ul>
-        {% for todo in todos %}
-            <li>
-                <div class="todo-item">
-                    <div>{{ todo.title }}</div>
-                    <div>
-                        <form action="remove/{{ todo.id }}" method="DELETE" role="form">
-                            {% csrf_token %}
-                            <button type="submit">Delete</button>
-                        </form>
+        <div class="container">
+            <form action="add/" method="POST" role="form">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    {{ form.todo }}
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">ADD</button>
                     </div>
                 </div>
-            </li>
-        {% endfor %}
-        </ul>
+            </form>
+
+            <!-- Display all TODOs -->
+            <ul class="list-group">
+            {% for todo in todos %}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col">{{ todo.title }}</div>
+                        <div class="col">
+                            <form action="remove/{{ todo.id }}" method="DELETE" role="form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger float-right">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
     </body>
 </html>
