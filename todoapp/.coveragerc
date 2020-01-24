@@ -1,0 +1,9 @@
+[run]
+source = .
+omit =
+        **/tests/*
+        todoapp/*
+        manage.py
+
+[report]
+show_missing = True

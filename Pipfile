@@ -11,12 +11,14 @@ allow_prereleases = true
 
 [scripts]
 format="black -l 120 ."
+test="bash -c 'cd todoapp && ./manage.py test'"
+"test:coverage"="bash -c 'cd todoapp && coverage run ./manage.py test && coverage report'"
 
 [packages]
 django = "*"
 gunicorn = "*"
-psycopg2 = "*"
 
 [dev-packages]
 black = "*"
 docker-compose = "*"
+coverage = "*"
